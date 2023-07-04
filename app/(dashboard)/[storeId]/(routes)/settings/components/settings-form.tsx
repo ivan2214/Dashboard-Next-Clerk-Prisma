@@ -23,6 +23,7 @@ import { Input } from '@/components/ui/input'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import AlertModal from '@/components/modals/alert-modal'
+import { ApiAlert } from '@/components/ui/api-alert'
 
 interface SettingsPageProps {
   initialData: Store
@@ -114,6 +115,12 @@ const SettingsForm: React.FC<SettingsPageProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        variant='public'
+        title='NEXT_PUBLIC_API_URL'
+        description={`${origin}/api/stores/${params.storeId}`}
+      />
     </>
   )
 }
