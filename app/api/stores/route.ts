@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     }
 
     if (!name) {
-      return new NextResponse('Unauthorized', {
+      return new NextResponse('Name is required', {
         status: 401,
       })
     }

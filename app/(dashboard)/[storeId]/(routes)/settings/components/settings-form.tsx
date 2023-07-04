@@ -20,6 +20,9 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { toast } from 'react-hot-toast'
+import axios from 'axios'
+import AlertModal from '@/components/modals/alert-modal'
 
 interface SettingsPageProps {
   initialData: Store
@@ -45,16 +48,41 @@ const SettingsForm: React.FC<SettingsPageProps> = ({ initialData }) => {
   })
 
   const onSubmit = async (data: SettingsFormValues) => {
-    setLoading(true)
     try {
-    } catch (error) {
+      setLoading(true)
+      await axios.patch(`/api/stores/${params.storeId}`, data)
+      router.refresh()
+      toast.success('Store updated.')
+    } catch (error: any) {
+      toast.error('Something went wrong.')
     } finally {
       setLoading(false)
     }
   }
 
+  const onDelete = async () => {
+    try {
+      setLoading(true)
+      await axios.delete(`/api/stores/${params.storeId}`)
+      router.refresh()
+      router.push('/')
+      toast.success('Store deleted.')
+    } catch (error: any) {
+      toast.error('Make sure you removed all products and categories first.')
+    } finally {
+      setLoading(false)
+      setOpen(false)
+    }
+  }
+
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
       <div className='flex items-center justify-between'>
         <Heading title='Settings' description='Manage store preferences' />
         <Button disabled={loading} variant='destructive' size='sm' onClick={() => setOpen(true)}>
