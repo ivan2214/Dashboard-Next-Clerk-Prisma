@@ -5,6 +5,7 @@ import { StoreSwitcher } from '@/components/store-switcher'
 import { MainNav } from '@/components/main-nav'
 import { ThemeToggle } from '@/components/theme-toggle'
 import prismadb from '@/lib/prismadb'
+import { MainNavMobile } from './main-nav-mobile'
 
 const Navbar = async () => {
   const { userId } = auth()
@@ -21,13 +22,14 @@ const Navbar = async () => {
 
   return (
     <div className='border-b'>
-      <div className='flex h-16 items-center px-4'>
+      <div className='flex h-16 items-center gap-3 lg:gap-0 px-4'>
         <StoreSwitcher items={stores} />
-        <MainNav className='mx-6' />
+        <MainNav className='mx-6 hidden lg:flex' />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeToggle />
           <UserButton afterSignOutUrl='/' />
         </div>
+        <MainNavMobile className='lg:hidden' />
       </div>
     </div>
   )
