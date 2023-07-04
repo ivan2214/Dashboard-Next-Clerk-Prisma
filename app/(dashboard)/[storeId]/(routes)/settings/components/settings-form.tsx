@@ -70,7 +70,9 @@ const SettingsForm: React.FC<SettingsPageProps> = ({ initialData }) => {
       router.push('/')
       toast.success('Store deleted.')
     } catch (error: any) {
-      toast.error('Make sure you removed all products and categories first.')
+      toast('Make sure you removed all products and categories first.', {
+        icon: '⚠',
+      })
     } finally {
       setLoading(false)
       setOpen(false)
