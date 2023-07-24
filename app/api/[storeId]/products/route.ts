@@ -86,6 +86,7 @@ export async function GET(req: Request, { params }: { params: { storeId: string 
     const colorId = searchParams.get('colorId') || undefined
     const sizeId = searchParams.get('sizeId') || undefined
     const isFeatured = searchParams.get('isFeatured')
+    const name = searchParams.get('name') || undefined
 
     if (!params.storeId) {
       return new NextResponse('Store id is required', { status: 400 })
@@ -93,6 +94,7 @@ export async function GET(req: Request, { params }: { params: { storeId: string 
 
     const products = await prismadb.product.findMany({
       where: {
+        name,
         storeId: params.storeId,
         categoryId,
         colorId,
