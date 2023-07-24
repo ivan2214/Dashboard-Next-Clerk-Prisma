@@ -94,7 +94,9 @@ export async function GET(req: Request, { params }: { params: { storeId: string 
 
     const products = await prismadb.product.findMany({
       where: {
-        name,
+        name: {
+          contains: name,
+        },
         storeId: params.storeId,
         categoryId,
         colorId,
